@@ -12,17 +12,11 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".AnswerActivity" />
-        <activity android:name=".InputActivity">
-            <intent-filter>
-                <action android:name="jp.ac.titech.itpro.sdl.ACTION_NAME_INPUT" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".InputActivity" />
     </application>
 
 </manifest>

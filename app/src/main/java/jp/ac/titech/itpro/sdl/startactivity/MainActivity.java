@@ -1,6 +1,7 @@
 package jp.ac.titech.itpro.sdl.startactivity;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,10 +10,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private final static String TAG = MainActivity.class.getSimpleName();
-    private final static int REQ_NAME = 1234;
+    private final static String ACTION_INPUT = "jp.ac.titech.itpro.sdl.ACTION_INPUT";
+    private final static String NAME_EXTRA = "name";
+    private final static int REQ_NAME_2 = 1234;
+    private final static int REQ_NAME_3 = 1235;
 
     private TextView answer;
 
@@ -49,18 +56,46 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d(TAG, "onClick - Go 2");
                 Intent intent = new Intent(MainActivity.this, InputActivity.class);
-                startActivityForResult(intent, REQ_NAME);
+                startActivityForResult(intent, REQ_NAME_2);
             }
         });
+
+        Button buttonGo3 = findViewById(R.id.main_button_go3);
+        buttonGo3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick - Go 3");
+                Intent intent = new Intent(ACTION_INPUT);
+                PackageManager packageManager = getPackageManager();
+                List activities = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                if (!activities.isEmpty()) {
+                    startActivityForResult(intent, REQ_NAME_3);
+                } else {
+                    Toast.makeText(MainActivity.this, getString(R.string.toast_no_activities_format, ACTION_INPUT),
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
     }
 
     @Override
     protected void onActivityResult(int reqCode, int resCode, Intent data) {
         Log.d(TAG, "onActivityResult");
         switch (reqCode) {
-            case REQ_NAME:
+            case REQ_NAME_2:
                 if (resCode == RESULT_OK) {
                     String name = data.getStringExtra(InputActivity.NAME_EXTRA);
+                    if (name != null && !name.isEmpty()) {
+                        answer.setText(getString(R.string.answer_format, name));
+                    }
+                } else {
+                    answer.setText(R.string.answer_receive_default);
+                }
+                break;
+            case REQ_NAME_3:
+                if (resCode == RESULT_OK) {
+                    String name = data.getStringExtra(NAME_EXTRA);
                     if (name != null && !name.isEmpty()) {
                         answer.setText(getString(R.string.answer_format, name));
                     }

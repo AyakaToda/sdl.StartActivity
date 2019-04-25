@@ -4,8 +4,10 @@
     <string name="answer_default">Input your name and press OK</string>
     <string name="answer_receive_default">Press GO and input your name</string>
     <string name="answer_format">Hello %s,\nNice to see you.</string>
+    <string name="toast_no_activities_format">No activities that can handle %s.</string>
     <string name="input_hint">Name</string>
     <string name="button_go">Go</string>
     <string name="case1">Case 1</string>
     <string name="case2">Case 2</string>
+    <string name="case3">Case 3</string>
 </resources>
