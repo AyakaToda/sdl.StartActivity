@@ -16,17 +16,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/main_button_ok"
+    <TextView
+        android:id="@+id/main_answer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin"
-        android:text="@string/button_ok"
+        android:text="@string/answer_receive_default"
         android:textSize="@dimen/text_size"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_title" />
 
+    <TextView
+        android:id="@+id/main_case1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:text="@string/case1"
+        android:textSize="@dimen/text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_answer" />
+    <Button
+        android:id="@+id/main_button_go1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:text="@string/button_go"
+        android:textSize="@dimen/text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_case1" />
     <EditText
         android:id="@+id/main_input"
         android:layout_width="0dp"
@@ -35,8 +54,29 @@
         android:hint="@string/input_hint"
         android:inputType="textPersonName"
         android:textSize="@dimen/text_size"
-        app:layout_constraintEnd_toStartOf="@+id/main_button_ok"
+        app:layout_constraintEnd_toStartOf="@+id/main_button_go1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_title" />
+        app:layout_constraintTop_toBottomOf="@+id/main_case1" />
+
+    <TextView
+        android:id="@+id/main_case2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:text="@string/case2"
+        android:textSize="@dimen/text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_button_go1" />
+    <Button
+        android:id="@+id/main_button_go2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:text="@string/button_go"
+        android:textSize="@dimen/text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_case2" />
+
 
 </android.support.constraint.ConstraintLayout>

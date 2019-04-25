@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private final static String TAG = MainActivity.class.getSimpleName();
+    private final static int REQ_NAME = 1234;
+
+    private TextView answer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,13 +25,15 @@ public class MainActivity extends AppCompatActivity {
         TextView title = findViewById(R.id.main_title);
         title.setText(TAG);
 
+        answer = findViewById(R.id.main_answer);
+
         final EditText input = findViewById(R.id.main_input);
 
-        Button okButton = findViewById(R.id.main_button_ok);
-        okButton.setOnClickListener(new View.OnClickListener() {
+        Button buttonGo1 = findViewById(R.id.main_button_go1);
+        buttonGo1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick");
+                Log.d(TAG, "onClick - Go 1");
                 String name = input.getText().toString().trim();
                 if (!name.isEmpty()) {
                     Intent intent = new Intent(MainActivity.this, AnswerActivity.class);
@@ -37,6 +42,33 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        Button buttonGo2 = findViewById(R.id.main_button_go2);
+        buttonGo2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick - Go 2");
+                Intent intent = new Intent(MainActivity.this, InputActivity.class);
+                startActivityForResult(intent, REQ_NAME);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int reqCode, int resCode, Intent data) {
+        Log.d(TAG, "onActivityResult");
+        switch (reqCode) {
+            case REQ_NAME:
+                if (resCode == RESULT_OK) {
+                    String name = data.getStringExtra(InputActivity.NAME_EXTRA);
+                    if (name != null && !name.isEmpty()) {
+                        answer.setText(getString(R.string.answer_format, name));
+                    }
+                } else {
+                    answer.setText(R.string.answer_receive_default);
+                }
+                break;
+        }
     }
 
     @Override
