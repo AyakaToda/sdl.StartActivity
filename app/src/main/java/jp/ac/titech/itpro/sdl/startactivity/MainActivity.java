@@ -18,8 +18,11 @@ public class MainActivity extends AppCompatActivity {
     private final static String TAG = MainActivity.class.getSimpleName();
     private final static String ACTION_INPUT = "jp.ac.titech.itpro.sdl.ACTION_INPUT";
     private final static String NAME_EXTRA = "name";
+    private final static String TARGET_PACKAGE = "jp.ac.titech.itpro.sdl.startactivitysub";
+    private final static String TARGET_CLASS = TARGET_PACKAGE + ".InputActivity";
     private final static int REQ_NAME_2 = 1234;
     private final static int REQ_NAME_3 = 1235;
+    private final static int REQ_NAME_4 = 1236;
 
     private TextView answer;
 
@@ -77,6 +80,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button buttonGo4 = findViewById(R.id.main_button_go4);
+        buttonGo4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick - Go 4");
+                Intent intent = new Intent();
+                intent.setClassName(TARGET_PACKAGE, TARGET_CLASS);
+                PackageManager packageManager = getPackageManager();
+                List activities = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                if (activities.size() > 0) {
+                    startActivityForResult(intent, REQ_NAME_4);
+                } else {
+                    Toast.makeText(MainActivity.this, getString(R.string.toast_no_activities_format, TARGET_CLASS),
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     @Override
@@ -84,22 +104,15 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onActivityResult");
         switch (reqCode) {
             case REQ_NAME_2:
-                if (resCode == RESULT_OK) {
-                    String name = data.getStringExtra(InputActivity.NAME_EXTRA);
-                    if (name != null && !name.isEmpty()) {
-                        answer.setText(getString(R.string.answer_format, name));
-                    }
-                } else {
-                    answer.setText(R.string.answer_receive_default);
-                }
-                break;
             case REQ_NAME_3:
+            case REQ_NAME_4:
                 if (resCode == RESULT_OK) {
                     String name = data.getStringExtra(NAME_EXTRA);
                     if (name != null && !name.isEmpty()) {
                         answer.setText(getString(R.string.answer_format, name));
                     }
-                } else {
+                }
+                else {
                     answer.setText(R.string.answer_receive_default);
                 }
                 break;
